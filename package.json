@@ -7,6 +7,7 @@
     "test-client" : "node samples/test-client.js",
     "test-server" : "node samples/test-server.js",
     "client" : "node src/client.js",
+    "start" : "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
