@@ -70,4 +70,6 @@ npm start
 
 ## Output
 
-![Orders are being processed ](https://github.com/mandeep9888/BFX-order-matching-engine/tree/d89555b5efc0f9a9fb317b801b65746fd9d196c4/screenshots)
+Order matching Output
+
+![Orders are being processed ](https://github.com/mandeep9888/BFX-order-matching-engine/blob/be27905e53feac73bff6510870ecd019102794fa/screenshots/output.png).
