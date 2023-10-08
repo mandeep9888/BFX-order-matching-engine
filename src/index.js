@@ -70,7 +70,7 @@ function handleNewOrder(rid, payload, handler) {
   console.log(`Pending Order book length: ${orderBook.getLength()}`);
   const response = {
     success: true,
-    isOrderFulfilled,
+    OrderProcessed: isOrderFulfilled,
     numberOfPendingOrders: orderBook.getLength(),
   };
 
