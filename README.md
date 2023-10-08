@@ -53,20 +53,21 @@ npm start
 
 ## Implementation details
 
-- Implementation solution behave like both client and server.. refer index.js.
+- Implementation solution behaves like both client and server.. refer index.js.
 
-- For eleminanting race condition synchronization is importanat and it is acheive by locking resource.
-- Using Resource lock we are locking all the write operation to the orderbook so that node can be synchonized it may take few seconds.
+- For eliminating race conditions synchronization is important and it is achieved by locking resources.
+- Using Resource lock we are locking all the write operations to the order book so that node can be synchronized it may take a few seconds.
 - All other nodes are receiving new orders that are being broadcasted.
 - Because all nodes use the same order book copy and matching process, they all match the same orders.
 - used Quicksort for sorting orders which work well with large volumes of orders.
+- since the order book grows if  orders do not match to keep it small random order prices are between 10000 and 10100, and amount between -0.5 and 0.5.
 
 ## Issues:
 
-- when stoping a node, Port remain in use mayebe in cache for around 30-40 seconds, which generate error if trying to start the node again within this timeframe
-- code could be modularize I have created the folder and file stucture did not get the time to organized it fully.
-- Synchronization taking up few seconds, I dont have Idea how to handle it as of now.
-- solution have issues mantaining more than 100 pending orders in the queue
+- when stopping a node, Port remains in use may be in cache for around 30-40 seconds, which generates error if trying to start the node again within this timeframe
+- code could be modularized I have created the folder and file structure but did not get the time to organize it fully.
+- Synchronization takes up few seconds, I don't have an Idea how to handle it as of now.
+- solution has issues mantaining more than 100 pending orders in the queue
 
 ## Output
 
