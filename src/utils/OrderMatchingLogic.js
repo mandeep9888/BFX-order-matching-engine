@@ -1,4 +1,7 @@
+"use strict";
+
 // simplified order matching engine
+
 class OrderMatchBook {
   constructor() {
     this.buys = [];
@@ -9,17 +12,57 @@ class OrderMatchBook {
     book.forEach((order) => this.addOrderToBook(order));
   }
 
+  //   // Helper function to insert an order while maintaining sorting order
+  //   insertOrder(order, array, comparator) {
+  //     let index = array.findIndex((existingOrder) =>
+  //       comparator(existingOrder, order)
+  //     );
+  //     if (index === -1) {
+  //       index = array.length;
+  //     }
+  //     array.splice(index, 0, order);
+  //   }
+
+  // more optimize insertOrder using quicksort
   // Helper function to insert an order while maintaining sorting order
   insertOrder(order, array, comparator) {
-    let index = array.findIndex((existingOrder) =>
-      comparator(existingOrder, order)
-    );
-    if (index === -1) {
-      index = array.length;
-    }
-    array.splice(index, 0, order);
+    array.push(order);
+    this.quickSort(array, comparator, 0, array.length - 1);
   }
 
+  // Quicksort implementation for scaling for large volume of orders
+  quickSort(array, comparator, left, right) {
+    if (left < right) {
+      const pivotIndex = this.partition(array, comparator, left, right);
+      this.quickSort(array, comparator, left, pivotIndex - 1);
+      this.quickSort(array, comparator, pivotIndex + 1, right);
+    }
+  }
+
+  // Partitioning step of Quicksort
+  partition(array, comparator, left, right) {
+    const pivot = array[right];
+    let i = left - 1;
+
+    for (let j = left; j < right; j++) {
+      if (comparator(array[j], pivot) <= 0) {
+        i++;
+        this.swap(array, i, j);
+      }
+    }
+
+    this.swap(array, i + 1, right);
+    return i + 1;
+  }
+
+  // Helper function to swap two elements in an array
+  swap(array, i, j) {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  //  Check the order is a buy or sell based on its amount property and inserts it into the appropriate array.
   addOrderToBook(order) {
     const targetArray = order.amount > 0 ? this.buys : this.sells;
     const comparator =
@@ -32,6 +75,11 @@ class OrderMatchBook {
     console.log(`${order.amount > 0 ? "Buy" : "Sell"} order added:`, order);
   }
 
+  /**
+   * Matches a buy order against sell order
+   * @param {order}
+   * @returns It returns an array of fulfilled orders and the remaining unfulfilled amount
+   */
   fulfillOrder(order) {
     const fulfilledOrders = [];
     const amountToFind = order.amount;
@@ -74,6 +122,8 @@ class OrderMatchBook {
     return { fulfilledOrders, amountToFind };
   }
 
+  // Places a market order in the order book. uses fullfillOrder function
+  // If there's any unfulfilled amount, it adds the remaining part of the order to the order book.
   placeMarketOrder(order) {
     const { fulfilledOrders, amountToFind } = this.fulfillOrder(order);
     console.log("Fulfilled orders:", fulfilledOrders);
@@ -87,10 +137,12 @@ class OrderMatchBook {
     return fulfilledOrders.length > 0;
   }
 
+  //  Returns the total number of orders in the order book
   getLength() {
     return this.buys.length + this.sells.length;
   }
 
+  // Returns an array containing all orders in the order book
   getAllOrders() {
     return [...this.buys, ...this.sells];
   }
