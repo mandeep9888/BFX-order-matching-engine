@@ -64,10 +64,10 @@ npm start
 
 ## Issues:
 
-- when stopping a node, Port remains in use may be in cache for around 30-40 seconds, which generates error if trying to start the node again within this timeframe
+- when stopping a node, Port remains in use may be in cache for around 30-40 seconds, which generates error if trying to start the node again within this timeframe.
 - code could be modularized I have created the folder and file structure but did not get the time to organize it fully.
 - Synchronization takes up few seconds, I don't have an Idea how to handle it as of now.
-- solution has issues mantaining more than 100 pending orders in the queue
+- solution has issues mantaining more than 100 pending orders in the queue.
 
 ## Output
 
