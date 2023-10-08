@@ -82,7 +82,7 @@ class OrderMatchBook {
    */
   fulfillOrder(order) {
     const fulfilledOrders = [];
-    const amountToFind = order.amount;
+    let amountToFind = order.amount;
 
     // check whether the order is a buy or sell order
     const targetArray = amountToFind > 0 ? this.sells : this.buys;
